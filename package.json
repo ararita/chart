@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "apexcharts": "^3.23.0",
+    "axios": "^0.21.0",
     "core-js": "^3.8.1",
     "vue": "^2.6.12"
   },
@@ -28,6 +29,7 @@
     },
     "extends": [
       "plugin:vue/essential",
+      "plugin:prettier/recommended",
       "eslint:recommended"
     ],
     "parserOptions": {

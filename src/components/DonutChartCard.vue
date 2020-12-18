@@ -31,15 +31,36 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  name: 'HelloWorld',
+  name: 'DonutChartCard',
+  data() {
+    return {
+      widgets: null
+    }
+  },
+
+  created: function() {
+
+    console.log("before axios call");
+    axios
+      .get('/chartData.json')
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+        }
+      )
+  },
+
   props: {
     msg: String
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- Add "scoped" attribute to limit CSS to this component only 
 <style scoped>
 h3 {
   margin: 40px 0 0;
@@ -55,4 +76,6 @@ li {
 a {
   color: #42b983;
 }
-</style>
+</style> 
+-->
+
