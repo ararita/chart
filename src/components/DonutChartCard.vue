@@ -2,13 +2,35 @@
   <div class="widget">
     <div v-for="profile in profiles" v-bind:key="profile.title">
       <h1>{{ profile.title }}</h1>
-      <p>{{ profile.totalLabel }}</p>
-      {{ getSum(profile.data) }}
+      <!-- <p>{{ profile.totalLabel }}</p>
+      {{ getSum(profile.data) }} -->
       <div>
         <apexchart
           width="380"
           type="donut"
-          :options="{ labels: getLabels(profile.data) }"
+          :options="{
+            labels: getLabels(profile.data),
+            colors: ['#db1675', '#84acf0', '#662E9B'],
+            dataLabels: {
+              enabled: false,
+            },
+            plotOptions: {
+              pie: {
+                donut: {
+                  labels: {
+                    show: true,
+                    total: { show: true },
+                    name: {
+                      show: true,
+                    },
+                    value: {
+                      show: true,
+                    },
+                  },
+                },
+              },
+            },
+          }"
           :series="getValues(profile.data)"
         ></apexchart>
       </div>
