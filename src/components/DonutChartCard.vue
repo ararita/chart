@@ -1,7 +1,15 @@
 <template>
-  <div class="widget">
-    <div v-for="profile in profiles" v-bind:key="profile.title">
-      <h1>{{ profile.title }}</h1>
+  <section class="widget">
+    <div
+      v-for="profile in profiles"
+      v-bind:key="profile.title"
+      class="widget-item"
+    >
+      <div class="top-section">
+        <h1>{{ profile.title }}</h1>
+
+        <img src="../assets/menu-dots.png" alt="menu" />
+      </div>
       <!-- <p>{{ profile.totalLabel }}</p>
       {{ getSum(profile.data) }} -->
       <div>
@@ -9,6 +17,9 @@
           width="380"
           type="donut"
           :options="{
+            chart: {
+              width: 200,
+            },
             labels: getLabels(profile.data),
             colors: ['#db1675', '#84acf0', '#662E9B'],
             dataLabels: {
@@ -38,7 +49,7 @@
         {{ entry.label }} <br />
       </div> -->
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
