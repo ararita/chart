@@ -11,8 +11,8 @@ import DonutChartCard from "./components/DonutChartCard.vue";
 export default {
   name: "App",
   components: {
-    DonutChartCard
-  }
+    DonutChartCard,
+  },
 };
 </script>
 

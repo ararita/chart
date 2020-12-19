@@ -4,6 +4,14 @@
       <h1>{{ profile.title }}</h1>
       <p>{{ profile.totalLabel }}</p>
       {{ getSum(profile.data) }}
+      <div>
+        <apexchart
+          width="380"
+          type="donut"
+          :options="options"
+          :series="profile.data"
+        ></apexchart>
+      </div>
       <div v-for="entry in profile.data" v-bind:key="entry.label">
         {{ entry.label }} <br />
       </div>
@@ -13,11 +21,28 @@
 
 <script>
 import axios from "axios";
+
 export default {
   name: "DonutChartCard",
   data() {
     return {
       profiles: [],
+      // options: {
+      //   chart: {
+      //     id: "chart",
+      //   },
+      //   xaxis: {
+      //     categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+      //   },
+      // },
+      // series: [
+      //   {
+      //     name: "series-1",
+      //     data: [30, 40, 45, 50, 49, 60, 70, 91],
+      //   },
+      // ],
+      options: {},
+      series: [],
     };
   },
 
