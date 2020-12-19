@@ -8,13 +8,13 @@
         <apexchart
           width="380"
           type="donut"
-          :options="options"
-          :series="profile.data"
+          :options="{ labels: getLabels(profile.data) }"
+          :series="getValues(profile.data)"
         ></apexchart>
       </div>
-      <div v-for="entry in profile.data" v-bind:key="entry.label">
+      <!-- <div v-for="entry in profile.data" v-bind:key="entry.label">
         {{ entry.label }} <br />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -41,8 +41,6 @@ export default {
       //     data: [30, 40, 45, 50, 49, 60, 70, 91],
       //   },
       // ],
-      options: {},
-      series: [],
     };
   },
 
@@ -74,10 +72,19 @@ export default {
 
   methods: {
     getSum: function(data) {
-      console.log("data", data);
       return data.reduce((sum, currentItem) => {
         return sum + currentItem.value;
       }, 0);
+    },
+    getLabels: function(data) {
+      return data.map((obj) => {
+        return obj.label;
+      });
+    },
+    getValues: function(data) {
+      return data.map((obj) => {
+        return obj.value;
+      });
     },
   },
   // props: {
