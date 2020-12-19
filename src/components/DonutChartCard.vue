@@ -3,11 +3,10 @@
     <div v-for="profile in profiles" v-bind:key="profile.title">
       <h1>{{ profile.title }}</h1>
       <p>{{ profile.totalLabel }}</p>
+      {{ getSum(profile.data) }}
       <div v-for="entry in profile.data" v-bind:key="entry.label">
         {{ entry.label }} <br />
-        <!-- {{ entry.value }} -->
       </div>
-      <div>{{ sumTotalValues }}</div>
     </div>
   </div>
 </template>
@@ -34,21 +33,28 @@ export default {
       });
   },
 
-  computed: {
-    sumTotalValues: function() {
-      let sumOfValues = this.profiles.map((profile) => {
-        return profile.data.reduce((sum, currentItem) => {
-          return sum + currentItem.value;
-        }, 0);
-      });
-      return sumOfValues.map((eachSum) => {
-        console.log(eachSum);
-        return eachSum;
-      });
+  // computed: {
+  //   sumTotalValues: function() {
+  //     let sumOfValues = this.profiles.map((profile) => {
+  //       return profile.data.reduce((sum, currentItem) => {
+  //         return sum + currentItem.value;
+  //       }, 0);
+  //     });
+  //     return sumOfValues.map((eachProfileSum) => {
+  //       // console.log(eachProfileSum);
+  //       return eachProfileSum;
+  //     });
+  //   },
+  // },
+
+  methods: {
+    getSum: function(data) {
+      console.log("data", data);
+      return data.reduce((sum, currentItem) => {
+        return sum + currentItem.value;
+      }, 0);
     },
   },
-
-  // mounted: function() {},
   // props: {
   //   msg: String,
   // },
