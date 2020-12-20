@@ -8,9 +8,10 @@
       <div class="top-section">
         <h1>{{ profile.title }}</h1>
         <img
+          v-if="profile.menuBtnVisible"
           src="../assets/menu-dots.png"
           alt="menu"
-          @click="cloneComponent(index, profile)"
+          @click="cloneComponent(index, profile), toggleMenuButton(profile)"
         />
       </div>
       <div>
@@ -64,6 +65,10 @@ export default {
       .get("/chartData.json")
       .then((res) => {
         this.profiles = res.data.profiles;
+        this.profiles.forEach((profile) => {
+          // Vue.set(object, propertyName, value)
+          this.$set(profile, "menuBtnVisible", true);
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -87,10 +92,12 @@ export default {
       });
     },
     cloneComponent: function(index, profile) {
-      console.log("index", index);
       let copiedProfile = { ...profile };
-      // console.log(JSON.parse(JSON.stringify(newProfile)));
       return this.profiles.push(copiedProfile);
+    },
+    toggleMenuButton: function(profile) {
+      profile.menuBtnVisible = false;
+      // console.log("after toggling", JSON.parse(JSON.stringify(profile)));
     },
   },
 };
