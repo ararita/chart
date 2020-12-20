@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <DonutChartCard msg="Welcome to Your DonutChartCard.js App" />
+    <DonutChartCard />
   </div>
 </template>
 
@@ -36,6 +35,11 @@ export default {
 .widget-item {
   box-shadow: 1px 1px 20px rgba(216, 215, 215, 0.74);
   padding: 20px;
+}
+
+.widget-item:hover {
+  box-shadow: 5px 3px 20px rgba(202, 201, 201, 0.74);
+  transition: ease-in 0.3s;
 }
 
 .top-section {
