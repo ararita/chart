@@ -1,14 +1,17 @@
 <template>
   <section class="widget">
     <div
-      v-for="profile in profiles"
-      v-bind:key="profile.title"
+      v-for="(profile, index) in profiles"
+      v-bind:key="index"
       class="widget-item"
     >
       <div class="top-section">
         <h1>{{ profile.title }}</h1>
-
-        <img src="../assets/menu-dots.png" alt="menu" />
+        <img
+          src="../assets/menu-dots.png"
+          alt="menu"
+          @click="cloneComponent(index, profile)"
+        />
       </div>
       <!-- <p>{{ profile.totalLabel }}</p>
       {{ getSum(profile.data) }} -->
@@ -17,9 +20,7 @@
           width="380"
           type="donut"
           :options="{
-            chart: {
-              width: 200,
-            },
+            legend: { width: 90 },
             labels: getLabels(profile.data),
             colors: ['#db1675', '#84acf0', '#662E9B'],
             dataLabels: {
@@ -60,25 +61,10 @@ export default {
   data() {
     return {
       profiles: [],
-      // options: {
-      //   chart: {
-      //     id: "chart",
-      //   },
-      //   xaxis: {
-      //     categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
-      //   },
-      // },
-      // series: [
-      //   {
-      //     name: "series-1",
-      //     data: [30, 40, 45, 50, 49, 60, 70, 91],
-      //   },
-      // ],
     };
   },
 
   created: function() {
-    // console.log("before axios call");
     axios
       .get("/chartData.json")
       .then((res) => {
@@ -118,6 +104,12 @@ export default {
       return data.map((obj) => {
         return obj.value;
       });
+    },
+    cloneComponent: function(index, profile) {
+      console.log("index", index);
+      let newProfile = { ...profile };
+      // console.log(JSON.parse(JSON.stringify(newProfile)));
+      return this.profiles.push(newProfile);
     },
   },
   // props: {
