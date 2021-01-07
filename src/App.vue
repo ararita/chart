@@ -4,7 +4,6 @@
       <DonutChartCard
         v-for="(profile, index) in profiles"
         :profile="profile"
-        :title="profile.title"
         :key="index"
         @clone="cloneComponent"
       />
@@ -32,10 +31,10 @@ export default {
       .get("/chartData.json")
       .then((res) => {
         this.profiles = res.data.profiles;
-        this.profiles.forEach((profile) => {
-          // Vue.set(object, propertyName, value)
-          this.$set(profile, "menuBtnVisible", true);
-        });
+        // this.profiles.forEach((profile) => {
+        // Vue.set(object, propertyName, value)
+        // this.$set(profile, "menuBtnVisible", true);
+        // });
       })
       .catch((err) => {
         console.log(err);

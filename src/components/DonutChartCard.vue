@@ -53,7 +53,6 @@ export default {
     };
   },
   computed: {
-    //use computed properties
     getLabels: function() {
       return this.profile.data.map((obj) => {
         return obj.label;
