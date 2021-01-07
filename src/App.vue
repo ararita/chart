@@ -65,4 +65,11 @@ export default {
   padding: 32px;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
+
+@media (max-width: 600px) {
+  .widget {
+    padding: 0;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
 </style>

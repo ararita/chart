@@ -11,9 +11,20 @@
     </div>
     <div>
       <apexchart
+        class="chart"
         width="380"
         type="donut"
         :options="{
+          responsive: [
+            {
+              breakpoint: 600,
+              options: {
+                chart: {
+                  width: 300,
+                },
+              },
+            },
+          ],
           legend: { width: 90 },
           labels: getLabels,
           colors: ['#db1675', '#84acf0', '#662E9B'],
@@ -75,6 +86,7 @@ export default {
 
 <style scoped>
 .widget-item {
+  border-radius: 4px;
   box-shadow: 1px 1px 20px rgba(216, 215, 215, 0.74);
   padding: 20px;
 }
@@ -100,5 +112,11 @@ export default {
 
 h1 {
   border-bottom: 3.5px dotted;
+}
+
+@media (max-width: 600px) {
+  /* .chart {
+    width: 20px;
+  } */
 }
 </style>
