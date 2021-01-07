@@ -36,7 +36,10 @@
               donut: {
                 labels: {
                   show: true,
-                  total: { show: true, label: profile.totalLabel },
+                  total: {
+                    show: true,
+                    label: profile.totalLabel,
+                  },
                   name: {
                     show: true,
                   },
@@ -115,8 +118,9 @@ h1 {
 }
 
 @media (max-width: 600px) {
-  /* .chart {
-    width: 20px;
-  } */
+  .widget-item {
+    padding: 20px;
+    margin-right: 1% auto;
+  }
 }
 </style>

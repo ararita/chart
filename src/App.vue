@@ -31,10 +31,6 @@ export default {
       .get("/chartData.json")
       .then((res) => {
         this.profiles = res.data.profiles;
-        // this.profiles.forEach((profile) => {
-        // Vue.set(object, propertyName, value)
-        // this.$set(profile, "menuBtnVisible", true);
-        // });
       })
       .catch((err) => {
         console.log(err);
