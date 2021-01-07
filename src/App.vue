@@ -1,16 +1,51 @@
 <template>
   <div id="app">
-    <DonutChartCard />
+    <section class="widget">
+      <DonutChartCard
+        v-for="(profile, index) in profiles"
+        :profile="profile"
+        :title="profile.title"
+        :key="index"
+        @clone="cloneComponent"
+      />
+    </section>
   </div>
 </template>
 
 <script>
 import DonutChartCard from "./components/DonutChartCard.vue";
+import axios from "axios";
 
 export default {
   name: "App",
   components: {
     DonutChartCard,
+  },
+
+  data() {
+    return {
+      profiles: [],
+    };
+  },
+  created: function() {
+    axios
+      .get("/chartData.json")
+      .then((res) => {
+        this.profiles = res.data.profiles;
+        this.profiles.forEach((profile) => {
+          // Vue.set(object, propertyName, value)
+          this.$set(profile, "menuBtnVisible", true);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  methods: {
+    cloneComponent: function(profile) {
+      let copiedProfile = { ...profile };
+      this.profiles.push(copiedProfile);
+    },
   },
 };
 </script>
@@ -30,33 +65,5 @@ export default {
   margin: 0 auto;
   padding: 32px;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-}
-
-.widget-item {
-  box-shadow: 1px 1px 20px rgba(216, 215, 215, 0.74);
-  padding: 20px;
-}
-
-.widget-item:hover {
-  box-shadow: 5px 3px 20px rgba(202, 201, 201, 0.74);
-  transition: ease-in 0.3s;
-}
-
-.top-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 20px;
-}
-
-.widget-item img {
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  padding: 20px;
-}
-
-h1 {
-  border-bottom: 3.5px dotted;
 }
 </style>

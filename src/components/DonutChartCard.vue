@@ -1,104 +1,105 @@
 <template>
-  <section class="widget">
-    <div
-      v-for="(profile, index) in profiles"
-      v-bind:key="index"
-      class="widget-item"
-    >
-      <div class="top-section">
-        <h1>{{ profile.title }}</h1>
-        <img
-          v-if="profile.menuBtnVisible"
-          src="../assets/menu-dots.png"
-          alt="menu"
-          @click="cloneComponent(index, profile), toggleMenuButton(profile)"
-        />
-      </div>
-      <div>
-        <apexchart
-          width="380"
-          type="donut"
-          :options="{
-            legend: { width: 90 },
-            labels: getLabels(profile.data),
-            colors: ['#db1675', '#84acf0', '#662E9B'],
-            dataLabels: {
-              enabled: false,
-            },
-            plotOptions: {
-              pie: {
-                donut: {
-                  labels: {
+  <section class="widget-item">
+    <div class="top-section">
+      <h1>{{ profile.title }}</h1>
+      <img
+        v-if="menuBtnVisible"
+        src="../assets/menu-dots.png"
+        alt="menu"
+        @click="cloneComponent"
+      />
+    </div>
+    <div>
+      <apexchart
+        width="380"
+        type="donut"
+        :options="{
+          legend: { width: 90 },
+          labels: getLabels,
+          colors: ['#db1675', '#84acf0', '#662E9B'],
+          dataLabels: {
+            enabled: false,
+          },
+          plotOptions: {
+            pie: {
+              donut: {
+                labels: {
+                  show: true,
+                  total: { show: true, label: profile.totalLabel },
+                  name: {
                     show: true,
-                    total: { show: true, label: profile.totalLabel },
-                    name: {
-                      show: true,
-                    },
-                    value: {
-                      show: true,
-                    },
+                  },
+                  value: {
+                    show: true,
                   },
                 },
               },
             },
-          }"
-          :series="getValues(profile.data)"
-        ></apexchart>
-      </div>
+          },
+        }"
+        :series="getValues"
+      ></apexchart>
     </div>
   </section>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "DonutChartCard",
+  props: ["title", "profile"],
   data() {
     return {
-      profiles: [],
+      menuBtnVisible: true,
     };
   },
-
-  created: function() {
-    axios
-      .get("/chartData.json")
-      .then((res) => {
-        this.profiles = res.data.profiles;
-        this.profiles.forEach((profile) => {
-          // Vue.set(object, propertyName, value)
-          this.$set(profile, "menuBtnVisible", true);
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
-
-  methods: {
-    // getSum: function(data) {
-    //   return data.reduce((sum, currentItem) => {
-    //     return sum + currentItem.value;
-    //   }, 0);
-    // },
-    getLabels: function(data) {
-      return data.map((obj) => {
+  computed: {
+    //use computed properties
+    getLabels: function() {
+      return this.profile.data.map((obj) => {
         return obj.label;
       });
     },
-    getValues: function(data) {
-      return data.map((obj) => {
+    getValues: function() {
+      return this.profile.data.map((obj) => {
         return obj.value;
       });
     },
-    cloneComponent: function(index, profile) {
-      let copiedProfile = { ...profile };
-      return this.profiles.push(copiedProfile);
-    },
-    toggleMenuButton: function(profile) {
-      profile.menuBtnVisible = false;
-      // console.log("after toggling", JSON.parse(JSON.stringify(profile)));
+  },
+  methods: {
+    cloneComponent: function() {
+      this.$emit("clone", this.profile);
+      this.menuBtnVisible = false;
     },
   },
 };
 </script>
+
+<style scoped>
+.widget-item {
+  box-shadow: 1px 1px 20px rgba(216, 215, 215, 0.74);
+  padding: 20px;
+}
+
+.widget-item:hover {
+  box-shadow: 5px 3px 20px rgba(202, 201, 201, 0.74);
+  transition: ease-in 0.3s;
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.widget-item img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  padding: 20px;
+}
+
+h1 {
+  border-bottom: 3.5px dotted;
+}
+</style>
