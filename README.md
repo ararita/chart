@@ -6,7 +6,7 @@ This is a simple chart built with Vue.js.
 
 ## Features
 
-- Donut chart that shows the legend, total number of visitors and the label
+- Donut chart that shows the legend, total number of users and the label
 - When clicked on the menu button, the component gets duplicated
 - On click, the menu button dissapears from the original component and appears on the duplicate (meaning that the component can be duplicated only once)
 
